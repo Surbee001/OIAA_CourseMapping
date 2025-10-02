@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import {
@@ -13,6 +14,7 @@ import {
   type UniversityRecommendation,
 } from "@/lib/courseCatalog";
 import { sampleCourseMappings, getSampleCourseMappings, type CourseMappingRow } from "@/data/sampleCourseMappings";
+import type { CourseEvaluation } from "@/types/application";
 import { StepTimeline } from "./StepTimeline";
 import styles from "./CourseMappingWizard.module.css";
 
@@ -132,7 +134,7 @@ export function CourseMappingWizard({ initialStep = 0 }: CourseMappingWizardProp
             if (draft.country) setSelectedCountry(draft.country);
             if (draft.university) setSelectedUniversity(draft.university);
             if (draft.courses && draft.courses.length > 0) {
-              setCourseInputs(draft.courses.map((c: any) => c.code));
+              setCourseInputs(draft.courses.map((c: CourseEvaluation) => c.code));
             }
             
             // Mark step 0 as completed if we have student data
@@ -702,7 +704,7 @@ export function CourseMappingWizard({ initialStep = 0 }: CourseMappingWizardProp
             <div className={styles.fieldGroupFull}>
               <div className={`${styles.recommendationCard} ${wantsRecommendations ? styles.recommendationCardActive : ""}`}>
                 <h3>Need help choosing?</h3>
-                <p>Tell us the courses you must complete and we'll recommend the strongest partner matches.</p>
+                <p>Tell us the courses you must complete and we&apos;ll recommend the strongest partner matches.</p>
                 <button
                   type="button"
                   className={styles.inlineButton}
@@ -712,7 +714,7 @@ export function CourseMappingWizard({ initialStep = 0 }: CourseMappingWizardProp
                 </button>
                 {wantsRecommendations ? (
                   <span className={styles.helper}>
-                    We'll skip partner selection and score every university once you add your courses.
+                    We&apos;ll skip partner selection and score every university once you add your courses.
                   </span>
                 ) : null}
               </div>
@@ -730,7 +732,7 @@ export function CourseMappingWizard({ initialStep = 0 }: CourseMappingWizardProp
               </span>
               {wantsRecommendations ? (
                 <div className={styles.recommendationBanner}>
-                  We'll use these courses to score every partner university and highlight the best matches.
+                  We&apos;ll use these courses to score every partner university and highlight the best matches.
                 </div>
               ) : null}
               <div className={styles.courseList}>
@@ -827,7 +829,7 @@ export function CourseMappingWizard({ initialStep = 0 }: CourseMappingWizardProp
                   ))
                 ) : (
                   <div className={styles.notice}>
-                    We couldn't find strong matches yet. Try adjusting your course list or pick a partner manually.
+                    We couldn&apos;t find strong matches yet. Try adjusting your course list or pick a partner manually.
                   </div>
                 )}
               </div>
@@ -915,10 +917,12 @@ export function CourseMappingWizard({ initialStep = 0 }: CourseMappingWizardProp
   return (
     <section className={styles.shell}>
       <header className={styles.topBar}>
-        <img
+        <Image
           src="https://github.com/Surbee001/webimg/blob/main/Artboard%201.png?raw=true"
           alt="Office of International Academic Affairs"
           className={styles.logo}
+          width={200}
+          height={50}
         />
       </header>
 

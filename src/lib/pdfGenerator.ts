@@ -11,11 +11,11 @@ export function generateApplicationPDF(application: Application): Buffer {
   
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(20);
-  doc.setFont(undefined, "bold");
+  doc.setFont("helvetica", "bold");
   doc.text("Exchange Application", 105, 15, { align: "center" });
   
   doc.setFontSize(11);
-  doc.setFont(undefined, "normal");
+  doc.setFont("helvetica", "normal");
   doc.text("Office of International Academic Affairs", 105, 23, { align: "center" });
   doc.text("Ajman University", 105, 29, { align: "center" });
   
@@ -32,13 +32,13 @@ export function generateApplicationPDF(application: Application): Buffer {
   let yPos = 62;
   doc.setFontSize(14);
   doc.setTextColor(17, 17, 17);
-  doc.setFont(undefined, "bold");
+  doc.setFont("helvetica", "bold");
   doc.text("Student Information", 14, yPos);
   
   yPos += 8;
   doc.setFontSize(10);
-  doc.setFont(undefined, "normal");
-  
+  doc.setFont("helvetica", "normal");
+
   const studentInfo = [
     ["Name", application.studentName],
     ["Student ID", application.studentId],
@@ -62,15 +62,15 @@ export function generateApplicationPDF(application: Application): Buffer {
   });
   
   // Personal Statement
-  yPos = (doc as any).lastAutoTable.finalY + 10;
+  yPos = (doc as jsPDF & { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 10;
   if (application.personalStatement) {
     doc.setFontSize(14);
-    doc.setFont(undefined, "bold");
+    doc.setFont("helvetica", "bold");
     doc.text("Personal Statement", 14, yPos);
     
     yPos += 7;
     doc.setFontSize(10);
-    doc.setFont(undefined, "normal");
+    doc.setFont("helvetica", "normal");
     doc.setTextColor(55, 65, 81);
     
     const splitStatement = doc.splitTextToSize(application.personalStatement, 180);
@@ -88,13 +88,13 @@ export function generateApplicationPDF(application: Application): Buffer {
   
   doc.setFontSize(14);
   doc.setTextColor(17, 17, 17);
-  doc.setFont(undefined, "bold");
+  doc.setFont("helvetica", "bold");
   doc.text("Exchange Destination", 14, yPos);
   
   yPos += 8;
   doc.setFontSize(10);
-  doc.setFont(undefined, "normal");
-  
+  doc.setFont("helvetica", "normal");
+
   const destinationInfo = [
     ["University", application.university],
     ["Country", application.country],
@@ -113,7 +113,7 @@ export function generateApplicationPDF(application: Application): Buffer {
   });
   
   // Course Mapping Section
-  yPos = (doc as any).lastAutoTable.finalY + 10;
+  yPos = (doc as jsPDF & { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 10;
   
   if (yPos > 240) {
     doc.addPage();
@@ -121,30 +121,25 @@ export function generateApplicationPDF(application: Application): Buffer {
   }
   
   doc.setFontSize(14);
-  doc.setFont(undefined, "bold");
+  doc.setFont("helvetica", "bold");
   doc.text("Course Mapping", 14, yPos);
   
   yPos += 5;
   
   const courseData = application.courses.map((course, index) => {
-    let statusColor: [number, number, number];
     let statusLabel: string;
-    
+
     switch (course.status) {
       case "approved":
-        statusColor = [16, 185, 129];
         statusLabel = "Approved";
         break;
       case "conditional":
-        statusColor = [245, 158, 11];
         statusLabel = "Conditional";
         break;
       case "pending":
-        statusColor = [59, 130, 246];
         statusLabel = "Pending";
         break;
       default:
-        statusColor = [156, 163, 175];
         statusLabel = "Missing";
     }
     
@@ -177,6 +172,7 @@ export function generateApplicationPDF(application: Application): Buffer {
       2: { cellWidth: 90 },
       3: { cellWidth: 35, halign: "center" },
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     didParseCell: (data: any) => {
       if (data.section === "body" && data.column.index === 3) {
         const statusText = data.cell.text[0];

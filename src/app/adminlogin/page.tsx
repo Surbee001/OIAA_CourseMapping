@@ -1,12 +1,11 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./page.module.css";
 
 export default function AdminLoginPage() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -42,10 +41,12 @@ export default function AdminLoginPage() {
 
   return (
     <div className={styles.shell}>
-      <img
+      <Image
         src="https://github.com/Surbee001/webimg/blob/main/Artboard%201.png?raw=true"
         alt="Office of International Academic Affairs"
         className={styles.logo}
+        width={200}
+        height={50}
       />
 
       <div className={styles.card}>

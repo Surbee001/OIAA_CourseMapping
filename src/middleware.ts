@@ -85,7 +85,9 @@ export function middleware(request: NextRequest) {
   );
 
   // Apply rate limiting
-  const ip = request.ip || request.headers.get("x-forwarded-for") || "unknown";
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0] ||
+             request.headers.get("x-real-ip") ||
+             "unknown";
   const pathname = request.nextUrl.pathname;
 
   // Rate limit login endpoint

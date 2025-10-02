@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import Image from "next/image";
 import { Application, ApplicationStatus } from "@/types/application";
 import styles from "./page.module.css";
 
@@ -26,7 +27,6 @@ export default function AdminPage() {
   const [selectedApp, setSelectedApp] = useState<Application | null>(null);
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const [menuPosition, setMenuPosition] = useState<{ top: number; left: number; transform: string } | null>(null);
-  const [showCommentModal, setShowCommentModal] = useState(false);
   const [commentType, setCommentType] = useState<"note" | "document_request" | "process_update">("note");
   const [commentPage, setCommentPage] = useState<"step_0" | "step_1" | "step_2" | "step_3" | "success_page">("step_0");
   const [commentMessage, setCommentMessage] = useState("");
@@ -284,10 +284,12 @@ export default function AdminPage() {
   return (
     <div className={styles.shell}>
       <header className={styles.topBar}>
-        <img
+        <Image
           src="https://github.com/Surbee001/webimg/blob/main/Artboard%201.png?raw=true"
           alt="Office of International Academic Affairs"
           className={styles.logo}
+          width={200}
+          height={50}
         />
         <div className={styles.topBarActions}>
           {adminEmail && (
@@ -753,7 +755,7 @@ export default function AdminPage() {
                         <select
                           className={styles.sidebarSelect}
                           value={commentPage}
-                          onChange={(e) => setCommentPage(e.target.value as any)}
+                          onChange={(e) => setCommentPage(e.target.value as "step_0" | "step_1" | "step_2" | "step_3" | "success_page")}
                         >
                           <option value="step_0">Step 1: Student Profile</option>
                           <option value="step_1">Step 2: Destination</option>
@@ -768,7 +770,7 @@ export default function AdminPage() {
                         <select
                           className={styles.sidebarSelect}
                           value={commentType}
-                          onChange={(e) => setCommentType(e.target.value as any)}
+                          onChange={(e) => setCommentType(e.target.value as "note" | "document_request" | "process_update")}
                         >
                           <option value="note">Note</option>
                           <option value="document_request">Document Request</option>

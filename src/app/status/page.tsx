@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, Suspense } from "react";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import styles from "./page.module.css";
 import { Application, AdminComment } from "@/types/application";
@@ -55,10 +56,6 @@ function StatusPageContent() {
     return labels[status] || status;
   };
 
-  const getCommentTypeIcon = (type: string) => {
-    // Icons removed for professional appearance
-    return "";
-  };
 
   const getCommentTypeLabel = (type: string) => {
     const labels: Record<string, string> = {
@@ -83,10 +80,12 @@ function StatusPageContent() {
   return (
     <div className={styles.shell}>
       <header className={styles.topBar}>
-        <img
+        <Image
           src="https://github.com/Surbee001/webimg/blob/main/Artboard%201.png?raw=true"
           alt="Office of International Academic Affairs"
           className={styles.logo}
+          width={200}
+          height={50}
         />
       </header>
 

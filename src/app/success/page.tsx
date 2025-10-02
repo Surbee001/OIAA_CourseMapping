@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
+import Image from "next/image";
 import styles from "./page.module.css";
 
 function SuccessPageContent() {
@@ -17,10 +18,12 @@ function SuccessPageContent() {
   return (
     <div className={styles.shell}>
       <header className={styles.topBar}>
-        <img
+        <Image
           src="https://github.com/Surbee001/webimg/blob/main/Artboard%201.png?raw=true"
           alt="Office of International Academic Affairs"
           className={styles.logo}
+          width={200}
+          height={50}
         />
       </header>
 

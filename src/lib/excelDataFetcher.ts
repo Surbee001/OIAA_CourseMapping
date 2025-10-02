@@ -1,4 +1,3 @@
-import * as XLSX from 'xlsx';
 import type { CourseMappingRow } from '@/data/sampleCourseMappings';
 
 export interface ExcelCourseData {
@@ -11,8 +10,6 @@ export interface ExcelCourseData {
 let cachedData: CourseMappingRow[] | null = null;
 let lastFetchTime: number = 0;
 const CACHE_DURATION = 60 * 1000; // 60 seconds in milliseconds
-
-const SHAREPOINT_URL = 'https://ajman4-my.sharepoint.com/:x:/g/personal/international_ajman_ac_ae/EQ7hVkGTVXBBkdudcC1aK7YBZ3pJselk6V4Yzp6eqD9Ozg?e=hzviI1&download=1';
 
 function detectCountryFromUniversity(universityName: string): string {
   const name = universityName.toLowerCase();
