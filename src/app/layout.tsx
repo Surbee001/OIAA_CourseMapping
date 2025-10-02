@@ -15,18 +15,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="preconnect" href="https://raw.githubusercontent.com" crossOrigin="anonymous" />
-        <style dangerouslySetInnerHTML={{
-          __html: `
-            @font-face {
-              font-family: 'ABC Normal Book';
-              src: url('https://raw.githubusercontent.com/Surbee001/webimg/main/ABC%20Normal%20Book.ttf') format('truetype');
-              font-weight: normal;
-              font-style: normal;
-              font-display: swap;
-            }
-          `
-        }} />
+        <link rel="preconnect" href="https://db.onlinewebfonts.com" crossOrigin="anonymous" />
+        <link href="https://db.onlinewebfonts.com/c/bad5d85dec62adc89f2f88300b74dd63?family=ABC+Normal+Book" rel="stylesheet" type="text/css" />
       </head>
       <body className="antialiased">{children}</body>
     </html>
