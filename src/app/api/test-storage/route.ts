@@ -77,10 +77,11 @@ export async function GET() {
   }
 
   // Test 3: Try to read what we just wrote
-  if (results.writeTest?.success && results.writeTest.url) {
+  const writeTest = results.writeTest as { success: boolean; url?: string } | null;
+  if (writeTest?.success && writeTest.url) {
     try {
       console.log("[Test] Attempting to read test blob...");
-      const response = await fetch(results.writeTest.url, {
+      const response = await fetch(writeTest.url, {
         cache: "no-store",
       });
 
@@ -109,9 +110,9 @@ export async function GET() {
 
   // Determine overall status
   const allTestsPassed = 
-    results.writeTest?.success && 
-    results.readTest?.success && 
-    results.listTest?.success;
+    (results.writeTest as { success?: boolean } | null)?.success && 
+    (results.readTest as { success?: boolean } | null)?.success && 
+    (results.listTest as { success?: boolean } | null)?.success;
 
   return NextResponse.json({
     ...results,
