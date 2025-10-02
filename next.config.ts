@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Disable font optimization to allow external fonts
+  optimizeFonts: false,
 };
 
 export default nextConfig;
