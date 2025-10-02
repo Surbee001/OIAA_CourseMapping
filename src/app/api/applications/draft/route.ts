@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { promises as fs } from "fs";
-import path from "path";
 import { Application } from "@/types/application";
 import { randomBytes } from "crypto";
+import { readApplications, writeApplications, updateApplication, addApplication } from "@/lib/storage";
 
 const draftSchema = z.object({
   id: z.string().optional(),
@@ -40,26 +39,6 @@ function generateDraftId(): string {
   return `draft-${randomBytes(6).toString("hex")}`;
 }
 
-const storageFile = path.join(process.cwd(), "data", "applications-log.json");
-
-async function readApplications(): Promise<Application[]> {
-  try {
-    const contents = await fs.readFile(storageFile, "utf8");
-    return JSON.parse(contents) as Application[];
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-      return [];
-    }
-    throw error;
-  }
-}
-
-async function writeApplications(applications: Application[]): Promise<void> {
-  const storageDir = path.dirname(storageFile);
-  await fs.mkdir(storageDir, { recursive: true });
-  await fs.writeFile(storageFile, JSON.stringify(applications, null, 2), "utf8");
-}
-
 export async function POST(request: Request) {
   const json = await request.json().catch(() => null);
   const parsed = draftSchema.safeParse(json);
@@ -73,25 +52,19 @@ export async function POST(request: Request) {
 
   const data = parsed.data;
   const now = new Date().toISOString();
-  const applications = await readApplications();
 
   // If ID exists, update existing draft
   if (data.id) {
-    const draftIndex = applications.findIndex(app => app.id === data.id && app.status === "draft");
+    const updatedDraft = await updateApplication(data.id, {
+      ...data,
+      status: "draft",
+    } as Partial<Application>);
     
-    if (draftIndex !== -1) {
-      applications[draftIndex] = {
-        ...applications[draftIndex],
-        ...data,
-        updatedAt: now,
-      } as Application;
-      
-      await writeApplications(applications);
-      
+    if (updatedDraft && updatedDraft.status === "draft") {
       return NextResponse.json({
         success: true,
         draftId: data.id,
-        draft: applications[draftIndex],
+        draft: updatedDraft,
       });
     }
   }
@@ -117,8 +90,7 @@ export async function POST(request: Request) {
     updatedAt: now,
   };
 
-  applications.push(newDraft);
-  await writeApplications(applications);
+  await addApplication(newDraft);
 
   return NextResponse.json({
     success: true,

@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/adminAuth";
-import { promises as fs } from "fs";
-import path from "path";
 import { z } from "zod";
-import { Application, ApplicationUpdate } from "@/types/application";
-
-const storageFile = path.join(process.cwd(), "data", "applications-log.json");
+import { ApplicationUpdate } from "@/types/application";
+import { updateApplication, deleteApplication, findApplication } from "@/lib/storage";
 
 const updateSchema = z.object({
   status: z
@@ -22,24 +19,6 @@ const updateSchema = z.object({
     .optional(),
   adminNotes: z.string().optional(),
 });
-
-async function readApplications(): Promise<Application[]> {
-  try {
-    const contents = await fs.readFile(storageFile, "utf8");
-    return JSON.parse(contents) as Application[];
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-      return [];
-    }
-    throw error;
-  }
-}
-
-async function writeApplications(applications: Application[]): Promise<void> {
-  const storageDir = path.dirname(storageFile);
-  await fs.mkdir(storageDir, { recursive: true });
-  await fs.writeFile(storageFile, JSON.stringify(applications, null, 2), "utf8");
-}
 
 export async function PATCH(
   request: NextRequest,
@@ -62,10 +41,10 @@ export async function PATCH(
       );
     }
 
-    const applications = await readApplications();
-    const applicationIndex = applications.findIndex((app) => app.id === id);
-
-    if (applicationIndex === -1) {
+    // Get the existing application to check old status
+    const existingApp = await findApplication(id);
+    
+    if (!existingApp) {
       return NextResponse.json(
         { error: "Application not found" },
         { status: 404 }
@@ -73,23 +52,24 @@ export async function PATCH(
     }
 
     const update: ApplicationUpdate = parsed.data;
-    const oldStatus = applications[applicationIndex].status;
+    const oldStatus = existingApp.status;
     
-    applications[applicationIndex] = {
-      ...applications[applicationIndex],
-      ...update,
-      updatedAt: new Date().toISOString(),
-    };
-
-    await writeApplications(applications);
+    // Update the application
+    const updatedApp = await updateApplication(id, update);
+    
+    if (!updatedApp) {
+      return NextResponse.json(
+        { error: "Failed to update application" },
+        { status: 500 }
+      );
+    }
 
     // Send nomination approved email in background (silent - never block the response)
-    const newStatus = applications[applicationIndex].status;
+    const newStatus = updatedApp.status;
     if (
       (newStatus === "nominated" || newStatus === "approved") &&
       oldStatus !== newStatus
     ) {
-      const updatedApp = applications[applicationIndex];
       setImmediate(async () => {
         try {
           const { sendNominationApprovedEmail } = await import("@/lib/resendClient");
@@ -108,7 +88,7 @@ export async function PATCH(
 
     return NextResponse.json({
       success: true,
-      application: applications[applicationIndex],
+      application: updatedApp,
     });
   } catch (error) {
     console.error("Failed to update application:", error);
@@ -130,17 +110,14 @@ export async function DELETE(
 
   try {
     const { id } = await params;
-    const applications = await readApplications();
-    const filteredApplications = applications.filter((app) => app.id !== id);
+    const deleted = await deleteApplication(id);
 
-    if (filteredApplications.length === applications.length) {
+    if (!deleted) {
       return NextResponse.json(
         { error: "Application not found" },
         { status: 404 }
       );
     }
-
-    await writeApplications(filteredApplications);
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -1,9 +1,8 @@
 ﻿import { NextResponse } from "next/server";
 import { z } from "zod";
-import { promises as fs } from "fs";
-import path from "path";
 import { Application } from "@/types/application";
 import { randomBytes } from "crypto";
+import { addApplication } from "@/lib/storage";
 
 const payloadSchema = z.object({
   studentName: z.string().min(1).max(100),
@@ -62,25 +61,16 @@ export async function POST(request: Request) {
     updatedAt: now,
   };
 
-  const storageDir = path.join(process.cwd(), "data");
-  const storageFile = path.join(storageDir, "applications-log.json");
-
-  await fs.mkdir(storageDir, { recursive: true });
-
-  let existing: Application[] = [];
-  try {
-    const contents = await fs.readFile(storageFile, "utf8");
-    existing = JSON.parse(contents) as Application[];
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
-      console.error("Failed to read existing applications log", error);
-    }
+  // Save to Vercel Blob Storage
+  const saved = await addApplication(record);
+  
+  if (!saved) {
+    console.error("[Course Mapping Application] Failed to save to blob storage");
+    // Log the application data so it's not lost
+    console.log("[Course Mapping Application] Data:", JSON.stringify(record, null, 2));
+  } else {
+    console.info("[Course Mapping Application] Saved:", record.id);
   }
-
-  existing.push(record);
-  await fs.writeFile(storageFile, JSON.stringify(existing, null, 2), "utf8");
-
-  console.info("[Course Mapping Application] Saved:", record.id);
 
   // Send emails in background (completely silent - never block the response)
   setImmediate(async () => {
