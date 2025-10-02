@@ -85,14 +85,17 @@ export async function writeApplications(applications: Application[]): Promise<bo
     console.log(`[Storage] 📝 Writing ${applications.length} applications (${jsonContent.length} bytes)`);
     console.log(`[Storage] Token present: ${BLOB_TOKEN ? 'YES' : 'NO'}, Token length: ${BLOB_TOKEN?.length || 0}`);
     
-    const result = await put(APPLICATIONS_BLOB_KEY, jsonContent, {
+    // Use type assertion to add allowOverwrite option (not in official types yet)
+    const options: Parameters<typeof put>[2] & { allowOverwrite?: boolean } = {
       access: "public",
       token: BLOB_TOKEN,
       contentType: "application/json",
-      addRandomSuffix: false, // Keep the same filename
-      // @ts-ignore - allowOverwrite is not in types but exists in API
+      addRandomSuffix: false,
+      cacheControlMaxAge: 0,
       allowOverwrite: true, // Allow overwriting existing blob
-    });
+    };
+    
+    const result = await put(APPLICATIONS_BLOB_KEY, jsonContent, options);
 
     console.log(`[Storage] ✅ Successfully saved to blob!`);
     console.log(`[Storage] - URL: ${result.url}`);

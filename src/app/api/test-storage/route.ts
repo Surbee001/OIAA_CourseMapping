@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { put, list } from "@vercel/blob";
 
 export async function GET() {
-  const results: any = {
+  const results: Record<string, unknown> = {
     timestamp: new Date().toISOString(),
     tokenConfigured: false,
     tokenValue: null,

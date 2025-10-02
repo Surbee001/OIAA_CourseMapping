@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { Application } from "@/types/application";
 import { randomBytes } from "crypto";
-import { readApplications, writeApplications, updateApplication, addApplication } from "@/lib/storage";
+import { readApplications, updateApplication, addApplication } from "@/lib/storage";
 
 const draftSchema = z.object({
   id: z.string().optional(),
