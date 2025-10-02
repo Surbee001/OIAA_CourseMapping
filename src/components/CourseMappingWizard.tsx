@@ -829,7 +829,7 @@ export function CourseMappingWizard({ initialStep = 0 }: CourseMappingWizardProp
                   ))
                 ) : (
                   <div className={styles.notice}>
-                    We couldn&apos;t find strong matches yet. Try adjusting your course list or pick a partner manually.
+                    No universities found with matching courses. The courses you entered may not be available at any of our partner institutions, or they may only have rejected matches. Please try different course codes or select a partner university manually from Step 2.
                   </div>
                 )}
               </div>

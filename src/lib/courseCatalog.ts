@@ -274,7 +274,16 @@ export function recommendUniversities(
       (code) => !aggregate.perCourse.has(code)
     );
 
-    const coverage = matchedCourses.length / normalizedCodes.length;
+    // Calculate useful matches (excluding notApproved)
+    const usefulMatchCount = approvedCount + conditionalCount + pendingCount;
+    
+    // Skip universities with no useful matches at all
+    if (usefulMatchCount === 0) {
+      continue;
+    }
+
+    // Coverage based only on useful matches (excludes notApproved courses)
+    const coverage = usefulMatchCount / normalizedCodes.length;
     const score =
       approvedCount * 4 +
       conditionalCount * 2 +
@@ -296,13 +305,13 @@ export function recommendUniversities(
     });
   }
 
-  // Sort by: 1) Total matched courses, 2) Approved count, 3) Score quality
+  // Sort by: 1) Useful match count (excluding notApproved), 2) Approved count, 3) Score quality
   recommendations.sort((a, b) => {
-    // Primary: Most matched courses wins
-    const aMatchCount = a.matchedCourses.length;
-    const bMatchCount = b.matchedCourses.length;
-    if (bMatchCount !== aMatchCount) {
-      return bMatchCount - aMatchCount;
+    // Primary: Most useful matches wins (approved + conditional + pending)
+    const aUsefulCount = a.approvedCount + a.conditionalCount + a.pendingCount;
+    const bUsefulCount = b.approvedCount + b.conditionalCount + b.pendingCount;
+    if (bUsefulCount !== aUsefulCount) {
+      return bUsefulCount - aUsefulCount;
     }
 
     // Secondary: Most approved courses wins
