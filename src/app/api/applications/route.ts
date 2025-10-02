@@ -80,23 +80,23 @@ export async function POST(request: Request) {
   existing.push(record);
   await fs.writeFile(storageFile, JSON.stringify(existing, null, 2), "utf8");
 
-  // Send emails to student and admin
-  try {
-    const { sendApplicationSubmissionEmails } = await import("@/lib/resendClient");
-    const emailResult = await sendApplicationSubmissionEmails(record);
-    
-    if (!emailResult.success) {
-      console.error("Email sending failed:", emailResult.error);
-      // Don't fail the request, just log the error
-    } else {
-      console.info("[Course Mapping Application] Emails sent successfully");
-    }
-  } catch (emailError) {
-    console.error("Email system error:", emailError);
-    // Continue even if email fails
-  }
+  console.info("[Course Mapping Application] Saved:", record.id);
 
-  console.info("[Course Mapping Application]", record);
+  // Send emails in background (completely silent - never block the response)
+  setImmediate(async () => {
+    try {
+      const { sendApplicationSubmissionEmails } = await import("@/lib/resendClient");
+      const emailResult = await sendApplicationSubmissionEmails(record);
+      
+      if (!emailResult.success) {
+        console.log("[Email] Failed to send:", emailResult.error);
+      } else {
+        console.log("[Email] Sent successfully");
+      }
+    } catch (emailError) {
+      console.log("[Email] Skipped due to error:", emailError instanceof Error ? emailError.message : String(emailError));
+    }
+  });
 
   return NextResponse.json({ ok: true, applicationId: record.id });
 }

@@ -7,7 +7,9 @@ import {
 } from "./emailTemplates";
 import { generateApplicationPDF } from "./pdfGenerator";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend with API key (fallback to empty string to prevent crashes)
+const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
+const resend = new Resend(RESEND_API_KEY);
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "international@ajman.ac.ae";
 const FROM_EMAIL = "OIAA Course Mapping <onboarding@resend.dev>";
@@ -16,6 +18,15 @@ const REPLY_TO_EMAIL = "h.mroue@ajman.ac.ae"; // Your personal email for replies
 export async function sendApplicationSubmissionEmails(
   application: Application
 ): Promise<{ success: boolean; error?: string }> {
+  // Check if Resend API key is configured
+  if (!RESEND_API_KEY) {
+    console.warn("⚠️ RESEND_API_KEY not configured. Emails will not be sent.");
+    return {
+      success: false,
+      error: "Email service not configured (missing RESEND_API_KEY)",
+    };
+  }
+
   try {
     // Generate PDF attachment
     const pdfBuffer = generateApplicationPDF(application);
@@ -78,6 +89,15 @@ export async function sendApplicationSubmissionEmails(
 export async function sendNominationApprovedEmail(
   application: Application
 ): Promise<{ success: boolean; error?: string }> {
+  // Check if Resend API key is configured
+  if (!RESEND_API_KEY) {
+    console.warn("⚠️ RESEND_API_KEY not configured. Nomination email will not be sent.");
+    return {
+      success: false,
+      error: "Email service not configured (missing RESEND_API_KEY)",
+    };
+  }
+
   try {
     const result = await resend.emails.send({
       from: FROM_EMAIL,

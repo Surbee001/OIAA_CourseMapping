@@ -83,24 +83,27 @@ export async function PATCH(
 
     await writeApplications(applications);
 
-    // Send nomination approved email if status changed to nominated or approved
+    // Send nomination approved email in background (silent - never block the response)
     const newStatus = applications[applicationIndex].status;
     if (
       (newStatus === "nominated" || newStatus === "approved") &&
       oldStatus !== newStatus
     ) {
-      try {
-        const { sendNominationApprovedEmail } = await import("@/lib/resendClient");
-        const emailResult = await sendNominationApprovedEmail(applications[applicationIndex]);
-        
-        if (!emailResult.success) {
-          console.error("Nomination email failed:", emailResult.error);
-        } else {
-          console.info("[Nomination Approved] Email sent to:", applications[applicationIndex].studentEmail);
+      const updatedApp = applications[applicationIndex];
+      setImmediate(async () => {
+        try {
+          const { sendNominationApprovedEmail } = await import("@/lib/resendClient");
+          const emailResult = await sendNominationApprovedEmail(updatedApp);
+          
+          if (!emailResult.success) {
+            console.log("[Email] Nomination email failed:", emailResult.error);
+          } else {
+            console.log("[Email] Nomination sent to:", updatedApp.studentEmail);
+          }
+        } catch (emailError) {
+          console.log("[Email] Skipped due to error:", emailError instanceof Error ? emailError.message : String(emailError));
         }
-      } catch (emailError) {
-        console.error("Email system error:", emailError);
-      }
+      });
     }
 
     return NextResponse.json({
