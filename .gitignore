@@ -40,9 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# application data (contains sensitive student information)
-/data/applications-log.json
-/data/applications-draft-log.json
+# application data (now stored in Vercel Blob - local files no longer used)
+/data/
 
 # test files
 test-emails.ts
