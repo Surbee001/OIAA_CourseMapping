@@ -1,0 +1,110 @@
+======================================
+  VERCEL ENVIRONMENT VARIABLES
+  Copy-Paste Ready Format
+======================================
+
+INSTRUCTIONS:
+1. Go to your Vercel project dashboard
+2. Navigate to: Settings → Environment Variables
+3. Add each variable below
+4. Apply to: Production, Preview, Development
+5. IMPORTANT: Change the ADMIN_PASSWORD value!
+
+--------------------------------------
+COPY THESE VARIABLES:
+--------------------------------------
+
+Variable Name: ADMIN_EMAIL
+Value: international@ajman.ac.ae
+Apply to: ☑ Production ☑ Preview ☑ Development
+
+--------------------------------------
+
+Variable Name: ADMIN_PASSWORD
+Value: YourSecurePassword123!
+Apply to: ☑ Production ☑ Preview ☑ Development
+⚠️ CHANGE THIS PASSWORD BEFORE DEPLOYING!
+
+--------------------------------------
+
+Variable Name: RESEND_API_KEY
+Value: re_your_resend_api_key_here
+Apply to: ☑ Production ☑ Preview
+(Get from: https://resend.com/api-keys)
+
+--------------------------------------
+
+Variable Name: RESEND_FROM_EMAIL
+Value: no-reply@yourdomain.com
+Apply to: ☑ Production ☑ Preview
+(Use your verified domain)
+
+--------------------------------------
+
+Variable Name: ADMIN_EMAIL_RECIPIENT
+Value: international@ajman.ac.ae
+Apply to: ☑ Production ☑ Preview
+
+--------------------------------------
+
+Variable Name: NODE_ENV
+Value: production
+Apply to: ☑ Production ONLY
+
+======================================
+  ONE-CLICK FORMAT (for bulk import)
+======================================
+
+If Vercel supports bulk import, use this:
+
+ADMIN_EMAIL=international@ajman.ac.ae
+ADMIN_PASSWORD=YourSecurePassword123!
+RESEND_API_KEY=re_your_resend_api_key_here
+RESEND_FROM_EMAIL=no-reply@yourdomain.com
+ADMIN_EMAIL_RECIPIENT=international@ajman.ac.ae
+NODE_ENV=production
+
+======================================
+  SECURITY CHECKLIST
+======================================
+
+Before deploying:
+□ Changed ADMIN_PASSWORD to a strong, unique password
+□ Obtained RESEND_API_KEY from Resend dashboard
+□ Verified domain for RESEND_FROM_EMAIL
+□ Double-checked all variables are correct
+□ Applied variables to correct environments
+
+After deploying:
+□ Test admin login with new credentials
+□ Verify email notifications work
+□ Check secure cookies are enabled (HTTPS only)
+□ Test rate limiting (try 6 login attempts)
+□ Review Vercel deployment logs
+
+======================================
+  RECOMMENDED PASSWORD FORMAT
+======================================
+
+Create a strong password with:
+- At least 12 characters
+- Mix of uppercase and lowercase
+- Numbers and special characters
+- Avoid dictionary words
+
+Example: Aj!mAn2025$SecUr3Pass
+
+======================================
+  NEED HELP?
+======================================
+
+Refer to:
+- VERCEL_DEPLOYMENT.md (full deployment guide)
+- DEPLOYMENT_READY.md (overview)
+- SECURITY_NOTES.md (security details)
+
+Vercel Support: https://vercel.com/docs
+Resend Support: https://resend.com/docs
+
+======================================
+

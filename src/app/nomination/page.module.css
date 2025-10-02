@@ -1,0 +1,226 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 24px 32px;
+  background: var(--surface-subtle);
+}
+
+.topBar {
+  display: flex;
+  justify-content: center;
+  padding: 4px 0;
+}
+
+.logo {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.card {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--ink);
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.courseCount {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #10b981;
+  margin: 8px 0;
+}
+
+.warningBox {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  text-align: left;
+}
+
+.warningTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #dc2626;
+  margin: 0 0 8px 0;
+}
+
+.warningText {
+  font-size: 0.9rem;
+  color: #991b1b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.infoBox {
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  text-align: left;
+}
+
+.infoText {
+  font-size: 0.9rem;
+  color: #1e40af;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.primaryButton {
+  flex: 1;
+  border-radius: 999px;
+  padding: 14px 24px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: 1px solid #111111;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #111111;
+  color: #ffffff;
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: #1f1f1f;
+  border-color: #71717a;
+}
+
+.primaryButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.secondaryButton {
+  flex: 1;
+  border-radius: 999px;
+  padding: 14px 24px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: 1px solid #d4d4d8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  color: var(--ink);
+}
+
+.secondaryButton:hover {
+  background: #f4f4f5;
+  border-color: #71717a;
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+}
+
+.statusPill.approved {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.pulsingDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.celebrationIcon {
+  font-size: 5rem;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.successTitle {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #10b981;
+  margin: 0;
+}
+
+.successMessage {
+  font-size: 1.1rem;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 32px 24px;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+}

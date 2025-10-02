@@ -1,0 +1,412 @@
+.shell {
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-subtle);
+  overflow: hidden;
+}
+
+.topBar {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  background: var(--surface-subtle);
+}
+
+.logo {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 24px 48px;
+  gap: 24px;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  overflow-y: auto;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d8 transparent;
+  position: relative;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20px,
+    black calc(100% - 20px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20px,
+    black calc(100% - 20px),
+    transparent 100%
+  );
+}
+
+.main::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.main::-webkit-scrollbar-thumb {
+  background: #d4d4d8;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.main::-webkit-scrollbar-thumb:hover {
+  background: #a1a1aa;
+  background-clip: padding-box;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin: 0 0 12px 0;
+  color: #171717;
+}
+
+.header p {
+  font-size: 1.05rem;
+  color: #8a8a8a;
+  margin: 0;
+}
+
+.searchCard {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.inputGroup {
+  display: flex;
+  gap: 12px;
+}
+
+.input {
+  flex: 1;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.95rem;
+  color: #171717;
+  transition: border-color 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #171717;
+}
+
+.searchButton {
+  background: #111111;
+  color: #ffffff;
+  border: 1px solid #111111;
+  border-radius: 999px;
+  padding: 14px 28px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.searchButton:hover:not(:disabled) {
+  background: #1f1f1f;
+  border-color: #71717a;
+}
+
+.searchButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.errorCard {
+  width: 100%;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 12px;
+  padding: 20px;
+  color: #991b1b;
+}
+
+.errorCard p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.resultsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.statusCard {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+}
+
+.statusHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.statusHeader h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+  color: #171717;
+}
+
+.statusBadge {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.statussubmitted,
+.statusawaiting_nomination {
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+}
+
+.statusnominated,
+.statussession_booked {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+.statusapproved,
+.statussession_completed {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
+
+.statusrejected,
+.statusdraft {
+  background: rgba(107, 114, 128, 0.12);
+  color: #6b7280;
+}
+
+.statusDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.detailLabel {
+  font-size: 0.9rem;
+  color: #8a8a8a;
+  font-weight: 500;
+}
+
+.detailValue {
+  font-size: 0.95rem;
+  color: #171717;
+  text-align: right;
+}
+
+.commentsCard {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+}
+
+.commentsCard h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin: 0 0 20px 0;
+  color: #171717;
+}
+
+.commentsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.commentItem {
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.commentType {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #171717;
+}
+
+.commentPage {
+  font-size: 0.8rem;
+  color: #8a8a8a;
+  margin-left: 6px;
+}
+
+.commentDate {
+  font-size: 0.8rem;
+  color: #8a8a8a;
+}
+
+.commentMessage {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #171717;
+  margin: 0;
+}
+
+.actionsCard {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+}
+
+.actionsCard h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  color: #171717;
+}
+
+.actionsCard p {
+  font-size: 0.95rem;
+  color: #8a8a8a;
+  margin: 0 0 20px 0;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 12px;
+}
+
+.primaryButton {
+  flex: 1;
+  background: #111111;
+  color: #ffffff;
+  border: 1px solid #111111;
+  border-radius: 999px;
+  padding: 14px 24px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.primaryButton:hover {
+  background: #1f1f1f;
+  border-color: #71717a;
+}
+
+.secondaryButton {
+  flex: 1;
+  background: transparent;
+  color: #171717;
+  border: 1px solid #d4d4d8;
+  border-radius: 999px;
+  padding: 14px 24px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.secondaryButton:hover {
+  background: #f4f4f5;
+  border-color: #71717a;
+}
+
+@media (max-width: 640px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .inputGroup {
+    flex-direction: column;
+  }
+
+  .searchButton {
+    width: 100%;
+  }
+
+  .statusHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detailRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detailValue {
+    text-align: left;
+  }
+
+  .commentHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+  }
+}
+

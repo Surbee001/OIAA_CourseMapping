@@ -1,0 +1,279 @@
+.shell {
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-subtle);
+  overflow: hidden;
+}
+
+.topBar {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  background: var(--surface-subtle);
+}
+
+.logo {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 24px 48px;
+  gap: 32px;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  overflow-y: auto;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d8 transparent;
+  position: relative;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20px,
+    black calc(100% - 20px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20px,
+    black calc(100% - 20px),
+    transparent 100%
+  );
+}
+
+.main::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.main::-webkit-scrollbar-thumb {
+  background: #d4d4d8;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.main::-webkit-scrollbar-thumb:hover {
+  background: #a1a1aa;
+  background-clip: padding-box;
+}
+
+.successCard {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.checkmark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: scaleIn 0.5s ease-out;
+}
+
+.checkmark svg {
+  width: 48px;
+  height: 48px;
+  color: white;
+  stroke-width: 3;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.successTitle {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--ink);
+}
+
+.successMessage {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.nextStepsCard {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.nextStepsTitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.stepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.step {
+  display: flex;
+  gap: 12px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.stepNumber {
+  min-width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #111;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.stepContent {
+  flex: 1;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.primaryButton {
+  flex: 1;
+  border-radius: 999px;
+  padding: 14px 24px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: 1px solid #111111;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #111111;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.primaryButton:hover {
+  background: #1f1f1f;
+  border-color: #71717a;
+}
+
+.secondaryButton {
+  flex: 1;
+  border-radius: 999px;
+  padding: 14px 24px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: 1px solid #d4d4d8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  color: var(--ink);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.secondaryButton:hover {
+  background: #f4f4f5;
+  border-color: #71717a;
+}
+
+.statusCheckNote {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  padding: 14px;
+  margin-top: 8px;
+}
+
+.statusCheckNote p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #0c4a6e;
+}
+
+.statusLink {
+  color: #0369a1;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.statusLink:hover {
+  color: #0c4a6e;
+}
+
+.warningNote {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 0.9rem;
+  color: #92400e;
+  margin-top: 8px;
+}
+
+@media (max-width: 640px) {
+  .successCard {
+    padding: 32px 24px;
+  }
+
+  .nextStepsCard {
+    padding: 24px;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+}

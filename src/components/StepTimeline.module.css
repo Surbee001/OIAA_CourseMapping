@@ -1,0 +1,208 @@
+.timeline {
+  width: 280px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+.timelineHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.timelineTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #171717;
+}
+
+.timelineCount {
+  font-size: 0.85rem;
+  color: #8a8a8a;
+  font-weight: 500;
+}
+
+.stepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.stepItem {
+  display: flex;
+  gap: 12px;
+  padding: 12px 8px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+  position: relative;
+}
+
+.stepItemClickable {
+  cursor: pointer;
+}
+
+.stepItemClickable:hover {
+  background: var(--surface-subtle);
+}
+
+.stepItemActive {
+  background: #fafafa;
+}
+
+.stepIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.stepNumber {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: var(--surface-subtle);
+  color: #8a8a8a;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.stepItemActive .stepNumber {
+  background: #171717;
+  color: #ffffff;
+  border-color: #171717;
+}
+
+.stepItemCompleted .stepNumber {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+}
+
+.checkmark {
+  font-size: 1rem;
+}
+
+.stepLine {
+  width: 2px;
+  flex: 1;
+  background: var(--border);
+  position: absolute;
+  top: 40px;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  transition: background 0.3s ease;
+}
+
+.stepLineCompleted {
+  background: #10b981;
+}
+
+.stepContent {
+  flex: 1;
+  padding-top: 4px;
+}
+
+.stepTitle {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #171717;
+  margin-bottom: 4px;
+}
+
+.stepStatus {
+  font-size: 0.8rem;
+  color: #8a8a8a;
+}
+
+.stepItemActive .stepStatus {
+  color: #171717;
+  font-weight: 500;
+}
+
+.stepItemCompleted .stepStatus {
+  color: #10b981;
+}
+
+.quickLinks {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.quickLinksHeader {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #171717;
+  margin-bottom: 12px;
+}
+
+.quickLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #171717;
+  text-decoration: none;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  transition: all 0.2s ease;
+}
+
+.quickLink:hover {
+  background: #ffffff;
+  border-color: #171717;
+  transform: translateX(2px);
+}
+
+.quickLink span {
+  flex: 1;
+}
+
+.quickLink svg {
+  color: #8a8a8a;
+  flex-shrink: 0;
+}
+
+.quickLinkDisabled {
+  background: #f5f5f5;
+  border-color: #e5e5e5;
+  color: #a1a1aa;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.quickLinkDisabled:hover {
+  background: #f5f5f5;
+  border-color: #e5e5e5;
+  transform: none;
+}
+
+@media (max-width: 1200px) {
+  .timeline {
+    display: none;
+  }
+}
+

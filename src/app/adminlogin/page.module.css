@@ -1,0 +1,125 @@
+.shell {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--surface-subtle);
+}
+
+.logo {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 48px;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header {
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 1.75rem;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+}
+
+.header p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldGroup label {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.input {
+  border-radius: 6px;
+  border: 1px solid #d4d4d8;
+  padding: 11px 12px;
+  background: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #1f2937;
+  box-shadow: inset 0 0 0 1px #1f2937;
+  background: #f9fafb;
+}
+
+.submitButton {
+  border-radius: 999px;
+  padding: 12px 28px;
+  font-weight: 500;
+  border: 1px solid #111111;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  background: #111111;
+  color: #ffffff;
+  margin-top: 8px;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: #1f1f1f;
+  border-color: #71717a;
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error {
+  border: 1px solid #dc2626;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 0.88rem;
+  color: #dc2626;
+  background: #fef2f2;
+  text-align: center;
+}
+
+.backLink {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+.backLink a {
+  color: var(--ink);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.backLink a:hover {
+  color: #666;
+}

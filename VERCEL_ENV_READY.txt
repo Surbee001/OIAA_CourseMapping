@@ -1,0 +1,52 @@
+========================================================
+  READY TO PASTE INTO VERCEL - ALL VALUES INCLUDED
+========================================================
+
+INSTRUCTIONS:
+1. Go to: https://vercel.com/new
+2. Import your GitHub repository: OIAA_CourseMapping
+3. Before clicking "Deploy", expand "Environment Variables"
+4. Copy ALL lines below and paste into Vercel
+5. Click "Deploy"
+
+========================================================
+COPY EVERYTHING BELOW THIS LINE (including the names):
+========================================================
+
+ADMIN_EMAIL=h.mroue@ajman.ac.ae
+ADMIN_PASSWORD=OI@a25
+RESEND_API_KEY=re_jZbc9WMP_BUZy1UrEKUDShkB94BTPv7vE
+RESEND_FROM_EMAIL=onboarding@resend.dev
+ADMIN_EMAIL_RECIPIENT=h.mroue@ajman.ac.ae
+NODE_ENV=production
+
+========================================================
+  NOTES:
+========================================================
+
+✅ All values are from your current .env.local
+✅ Using your existing Resend API key
+✅ ADMIN_EMAIL set to: h.mroue@ajman.ac.ae
+✅ Using Resend test email (onboarding@resend.dev)
+   - This will work immediately in Vercel
+   - You can change to a custom domain later
+
+⚠️  SECURITY REMINDER:
+   - Change ADMIN_PASSWORD after first deploy
+   - Currently set to: OI@a25
+
+========================================================
+  VERCEL BULK IMPORT FORMAT:
+========================================================
+
+If Vercel has a "Paste" or "Bulk Add" option, use this:
+
+ADMIN_EMAIL=h.mroue@ajman.ac.ae
+ADMIN_PASSWORD=OI@a25
+RESEND_API_KEY=re_jZbc9WMP_BUZy1UrEKUDShkB94BTPv7vE
+RESEND_FROM_EMAIL=onboarding@resend.dev
+ADMIN_EMAIL_RECIPIENT=h.mroue@ajman.ac.ae
+NODE_ENV=production
+
+========================================================
+
