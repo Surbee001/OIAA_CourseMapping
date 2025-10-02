@@ -4,6 +4,13 @@ import { Application } from "@/types/application";
 const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN;
 const APPLICATIONS_BLOB_KEY = "applications-log.json";
 
+// Log token status on module load (only first 10 chars for security)
+if (BLOB_TOKEN) {
+  console.log("[Storage] ✅ BLOB_READ_WRITE_TOKEN is configured:", BLOB_TOKEN.substring(0, 10) + "...");
+} else {
+  console.error("[Storage] ❌ BLOB_READ_WRITE_TOKEN is NOT configured!");
+}
+
 /**
  * Read all applications from Vercel Blob Storage
  */
@@ -67,14 +74,16 @@ export async function readApplications(): Promise<Application[]> {
 export async function writeApplications(applications: Application[]): Promise<boolean> {
   if (!BLOB_TOKEN) {
     console.error("⚠️ BLOB_READ_WRITE_TOKEN not configured. Cannot save applications.");
-    console.log("[Storage] Application data:", JSON.stringify(applications, null, 2));
+    console.error("[Storage] Set BLOB_READ_WRITE_TOKEN in your environment variables!");
+    console.log("[Storage] Application data (will be lost):", JSON.stringify(applications, null, 2));
     return false;
   }
 
   try {
     const jsonContent = JSON.stringify(applications, null, 2);
     
-    console.log(`[Storage] Writing ${applications.length} applications (${jsonContent.length} bytes)`);
+    console.log(`[Storage] 📝 Writing ${applications.length} applications (${jsonContent.length} bytes)`);
+    console.log(`[Storage] Token present: ${BLOB_TOKEN ? 'YES' : 'NO'}, Token length: ${BLOB_TOKEN?.length || 0}`);
     
     const result = await put(APPLICATIONS_BLOB_KEY, jsonContent, {
       access: "public",
@@ -83,11 +92,25 @@ export async function writeApplications(applications: Application[]): Promise<bo
       addRandomSuffix: false, // Keep the same filename
     });
 
-    console.log(`[Storage] ✅ Saved ${applications.length} applications to blob:`, result.url);
+    console.log(`[Storage] ✅ Successfully saved to blob!`);
+    console.log(`[Storage] - URL: ${result.url}`);
+    console.log(`[Storage] - Pathname: ${result.pathname}`);
+    console.log(`[Storage] - Content-Type: ${result.contentType}`);
+    
     return true;
   } catch (error) {
-    console.error("[Storage] ❌ Error writing applications:", error);
-    console.error("[Storage] Error details:", error instanceof Error ? error.message : String(error));
+    console.error("[Storage] ❌ CRITICAL ERROR writing to blob storage!");
+    console.error("[Storage] Error type:", error?.constructor?.name);
+    console.error("[Storage] Error message:", error instanceof Error ? error.message : String(error));
+    console.error("[Storage] Full error:", error);
+    
+    // Log the applications that failed to save
+    console.error("[Storage] Failed to save applications:", applications.map(a => ({
+      id: a.id,
+      name: a.studentName,
+      status: a.status
+    })));
+    
     return false;
   }
 }

@@ -62,15 +62,27 @@ export async function POST(request: Request) {
   };
 
   // Save to Vercel Blob Storage
+  console.log("[API] Starting to save application:", record.id);
   const saved = await addApplication(record);
   
   if (!saved) {
-    console.error("[Course Mapping Application] Failed to save to blob storage");
-    // Log the application data so it's not lost
-    console.log("[Course Mapping Application] Data:", JSON.stringify(record, null, 2));
-  } else {
-    console.info("[Course Mapping Application] Saved:", record.id);
+    console.error("[API] ❌ CRITICAL: Failed to save application to blob storage!");
+    console.error("[API] Application ID:", record.id);
+    console.error("[API] Student:", record.studentName, record.studentEmail);
+    console.error("[API] Data (will be lost):", JSON.stringify(record, null, 2));
+    
+    // Return error to user so they know something went wrong
+    return NextResponse.json(
+      { 
+        error: "Failed to save application. Please try again or contact support.",
+        applicationId: record.id,
+        debug: "Storage error - check server logs"
+      },
+      { status: 500 }
+    );
   }
+  
+  console.log("[API] ✅ Application saved successfully:", record.id);
 
   // Send emails in background (completely silent - never block the response)
   setImmediate(async () => {
