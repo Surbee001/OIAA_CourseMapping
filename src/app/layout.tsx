@@ -14,29 +14,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://db.onlinewebfonts.com" crossOrigin="anonymous" />
-        <link href="https://db.onlinewebfonts.com/c/bad5d85dec62adc89f2f88300b74dd63?family=ABC+Normal+Book" rel="stylesheet" type="text/css" />
-        <style dangerouslySetInnerHTML={{
-          __html: `
-            @font-face {
-              font-family: "ABC Normal Book";
-              src: url("https://db.onlinewebfonts.com/t/bad5d85dec62adc89f2f88300b74dd63.eot");
-              src: url("https://db.onlinewebfonts.com/t/bad5d85dec62adc89f2f88300b74dd63.eot?#iefix") format("embedded-opentype"),
-                   url("https://db.onlinewebfonts.com/t/bad5d85dec62adc89f2f88300b74dd63.woff2") format("woff2"),
-                   url("https://db.onlinewebfonts.com/t/bad5d85dec62adc89f2f88300b74dd63.woff") format("woff"),
-                   url("https://db.onlinewebfonts.com/t/bad5d85dec62adc89f2f88300b74dd63.ttf") format("truetype"),
-                   url("https://db.onlinewebfonts.com/t/bad5d85dec62adc89f2f88300b74dd63.svg#ABC Normal Book") format("svg");
-              font-weight: normal;
-              font-style: normal;
-              font-display: block;
-            }
-            * {
-              font-family: "ABC Normal Book", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-            }
-          `
-        }} />
-      </head>
       <body className="antialiased">{children}</body>
     </html>
   );
