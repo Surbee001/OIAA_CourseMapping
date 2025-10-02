@@ -14,6 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://db.onlinewebfonts.com" />
+        <link href="https://db.onlinewebfonts.com/c/bad5d85dec62adc89f2f88300b74dd63?family=ABC+Normal+Book" rel="stylesheet" />
+      </head>
       <body className="antialiased">{children}</body>
     </html>
   );

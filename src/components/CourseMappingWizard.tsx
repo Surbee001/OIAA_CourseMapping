@@ -918,11 +918,12 @@ export function CourseMappingWizard({ initialStep = 0 }: CourseMappingWizardProp
     <section className={styles.shell}>
       <header className={styles.topBar}>
         <Image
-          src="https://github.com/Surbee001/webimg/blob/main/Artboard%201.png?raw=true"
+          src="https://raw.githubusercontent.com/Surbee001/webimg/main/Artboard%201.png"
           alt="Office of International Academic Affairs"
           className={styles.logo}
           width={200}
-          height={50}
+          height={70}
+          priority
         />
       </header>
 
