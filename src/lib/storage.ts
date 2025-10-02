@@ -90,6 +90,8 @@ export async function writeApplications(applications: Application[]): Promise<bo
       token: BLOB_TOKEN,
       contentType: "application/json",
       addRandomSuffix: false, // Keep the same filename
+      // @ts-ignore - allowOverwrite is not in types but exists in API
+      allowOverwrite: true, // Allow overwriting existing blob
     });
 
     console.log(`[Storage] ✅ Successfully saved to blob!`);
